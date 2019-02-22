@@ -1,0 +1,9 @@
+---
+- name: Executing commands on Ubuntu
+  command: apt-get update
+  when: ansible_distribution == 'Ubuntu'
+  ignore_errors: True 
+- name: Executing commands on CentOS
+  command: yum update
+  when: ansible_distribution == 'CentOS'
+  ignore_errors: True

@@ -1,0 +1,10 @@
+---
+- hosts: localhost
+  become: yes
+  tasks:
+  - name: installation tree, git, wget using parameters
+    apt:
+      name: "{{ item }}"
+      state: present
+    with_items: [ "git", "tree", "wget" ]
+

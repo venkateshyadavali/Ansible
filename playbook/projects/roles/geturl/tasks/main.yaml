@@ -1,0 +1,5 @@
+---
+- name: geturl uage by fetching file from internet
+  get_url:
+    url: https://github.com/wakaleo/game-of-life/tree/master/gameoflife-web/build.xml
+    dest: /etc/ansible/playbook/projects/

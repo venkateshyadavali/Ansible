@@ -1,0 +1,4 @@
+- name: copying the files
+  copy:
+    src: kiran.txt
+    dest: /etc/ansible/playbook/

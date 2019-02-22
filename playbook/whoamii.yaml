@@ -1,0 +1,19 @@
+---
+- hosts: all
+  become: yes
+  tasks:
+  - name: find who is executing
+    command: whoami
+    register: userinfo
+  - name: print the userinfo
+    debug:
+      msg: "Directory is empty"
+      when: userinfo.stdout == ""
+  - name: ping all
+    ping:
+  - name: find out current directory
+    command: pwd
+  - name: UnInstall tree
+    apt: 
+      name: tree
+      state: absent

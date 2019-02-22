@@ -1,0 +1,16 @@
+- hosts: all
+  become: yes
+  tasks:
+  - name: Ansible register with_items example
+    shell: "find *.yaml"
+    args:
+      chdir: "/etc/ansible/playbook"
+    register: with_output
+
+  - name: copy files 
+    shell: "cp {{ item }} /etc/ansible/playbook/{{item}}_bkp"
+    with_items:
+      - "{{ with_output.stdout_lines }}"
+    ignore_errors: yes
+
+  - include: git1.yaml

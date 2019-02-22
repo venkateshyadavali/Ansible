@@ -1,0 +1,11 @@
+---
+- hosts: localhost
+  become: yes
+  tasks:  
+  - apt:
+      name: "{{ item }}"
+      state: present
+    with_items: [ "git", "tree",  "wget" ]
+  - file:
+      path: /home/ansible/ansible.txt
+      state: touch
