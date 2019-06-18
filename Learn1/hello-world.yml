@@ -1,0 +1,7 @@
+# ansible -m ping all
+# Play 
+---
+- hosts: all
+  tasks: 
+  - name: Execute ansible ping on hosts
+    ping:
