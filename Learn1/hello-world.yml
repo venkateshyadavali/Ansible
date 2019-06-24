@@ -2,6 +2,16 @@
 # Play 
 ---
 - hosts: all
+  become: yes
   tasks: 
   - name: Execute ansible ping on hosts
     ping:
+  - name: update packages on ubuntu
+    apt:
+      name: git
+      update_cache: yes
+      state: present
+  - name: install tree
+    apt:
+      name: tree
+      state: present
