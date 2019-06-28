@@ -1,0 +1,94 @@
+multiple.yaml
+---
+- hosts: localhost
+  become: yes
+  roles:
+  - copy 
+  - command
+- geturl
+
+
+Under 'roles' the directories specified in roles must be present
+
+command/tasks/main.yml
+---
+- name: Executing commands on Ubuntu
+  command: apt-get update
+  when: ansible_distribution == 'Ubuntu'
+  ignore_errors: True 
+- name: Executing commands on CentOS
+  command: yum update
+  when: ansible_distribution == 'CentOS'
+  ignore_errors: True
+
+
+copy/tasks/main.yml
+- name: copying the files
+  copy:
+    src: kiran.txt
+	dest: /etc/ansible/playbook/
+
+
+geturl/tasks/main.yml
+---
+- name: geturl uage by fetching file from internet
+  get_url:
+    url: https://github.com/wakaleo/game-of-life/tree/master/gameoflife-web/build.xml
+	dest: /etc/ansible/playbook/projects/
+
+
+
+==============================================================
+whoami.yaml
+
+---
+- hosts: all
+  become: yes
+  tasks:
+  - name: find who is executing
+    command: whoami
+    register: userinfo
+  - name: print the userinfo
+    debug:
+      msg: "Directory is empty"
+      when: userinfo.stdout == ""
+  - name: ping all
+    ping:
+  - name: find out current directory
+    command: pwd
+  - name: UnInstall tree
+    apt: 
+      name: tree
+	  state: absent
+==============================================================
+git.yaml
+
+---
+- hosts: localhost
+  become: yes
+  tasks:  
+  - apt:
+      name: "{{ item }}"
+      state: present
+    with_items: [ "git", "tree",  "wget" ]
+  - file:
+      path: /home/ansible/ansible.txt
+	  state: touch
+==============================================================
+backup.yaml
+- hosts: all
+  become: yes
+  tasks:
+  - name: Ansible register with_items example
+    shell: "find *.yaml"
+    args:
+      chdir: "/etc/ansible/playbook"
+    register: with_output
+
+  - name: copy files 
+    shell: "cp {{ item }} /etc/ansible/playbook/{{item}}_bkp"
+    with_items:
+      - "{{ with_output.stdout_lines }}"
+    ignore_errors: yes
+
+- include: git1.yaml
