@@ -1,0 +1,16 @@
+Install LAMP on ubuntu 18.04
+1. sudo apt update
+2. sudo apt install apache2
+3. sudo systemctl restart apache2
+4. sudo apt install php libapache2-mod-php php-mysql
+5. sudo systemctl restart apache2
+6. sudo nano /var/www/html/info.php
+	<?php
+	phpinfo();
+	?>
+
+Install LAMP on Centos
+1. sudo yum install httpd
+2. sudo systemctl start httpd.service 
+3. sudo yum install php php-mysql
+4. sudo systemctl restart httpd.service 
