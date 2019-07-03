@@ -1,0 +1,10 @@
+# Play
+---
+- hosts: all
+  become: yes
+  tasks:
+  - name: Install Python on Node (Ansible Node)
+    yum:
+      name: pip 
+      state: present
+      update_cache: yes

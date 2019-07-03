@@ -1,0 +1,12 @@
+On Node:
+	adduser
+	administrator access for ansible user (visudo)
+	/etc/ssh/sshd_config	'PasswordAuthentication yes' and restart sshd service
+	
+	User sould be able to login to node without password authentication
+	ssh-keygen & ssh-copy-id from ACS to the Node
+---------------------
+install_py_on_node.yaml		To install python on Ansible node. Pre-Req: passwordless ssh connectivity is established and ssh-copy-id is done.
+
+
+
