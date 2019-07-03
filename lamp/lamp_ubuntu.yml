@@ -1,0 +1,10 @@
+# Installing LAMP on Ubuntu 18.04
+---
+- hosts: all
+  become: yes
+  tasks:
+  - name: Install Apache
+    apt:
+      name: apache2
+      state: present
+      update_cache: yes
