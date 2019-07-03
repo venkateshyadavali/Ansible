@@ -46,6 +46,9 @@
     get_url:
       url: https://raw.githubusercontent.com/venkateshyadavali/Ansible/master/lamp/info.php
       dest: /var/www/html/info.php
+    notify:
+      - restart httpd
+      - restart apache
   handlers:
   - name: restart apache
     service:
