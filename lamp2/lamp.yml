@@ -1,4 +1,4 @@
-# Installing LAMP on Ubuntu 18.04
+# Installing LAMP on Ubuntu 18.04 & Redhat
 ---
 - hosts: all
   become: yes
@@ -11,6 +11,13 @@
     notify:
       - restart apache 
     when: ansible_os_family == "Debian" 
+  - name: Install httpd
+    yum:
+      name: httpd
+      state: present
+    notify:
+      - restart httpd
+    when: ansible_os_family == "RedHat"
   - name: Install PHP packages
     apt:
       name: "{{ item }}"
@@ -22,6 +29,19 @@
     notify:
       - restart apache 
     when: ansible_os_family == "Debian" 
+  - name: Install PHP packages on redhat
+    yum:
+      name: "{{ item }}"
+      state: present
+    with_items:
+      - php
+      - php-mysqlnd
+      - php-pdo
+      - php-gd
+      - php-mbstring
+    notify:
+      - restart httpd
+    when: ansible_os_family == "RedHat"
   handlers:
   - name: restart apache
     service:
@@ -29,3 +49,8 @@
       enabled: yes
       state: restarted
     when: ansible_os_family == "Debian" 
+  - name: restart httpd
+    service:
+      name: httpd
+      enabled: yes
+      state: started

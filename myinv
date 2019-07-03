@@ -1,2 +1,5 @@
+[master]
+localhost
+
 [node]
 172.31.87.153
