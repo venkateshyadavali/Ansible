@@ -1,0 +1,18 @@
+[ubuntu]
+localhost pack_name=apache2
+
+[redhat]
+ip-172-31-87-153.ec2.internal pack_name=httpd
+
+[webserver]
+localhost
+ip-172-31-87-153.ec2.internal
+
+[ubuntu:vars]
+pack_name = apache2
+php_packages = ["php","libapache2-mod-php","php-mysql"]
+
+[redhat:vars]
+pack_name = httpd
+php_packages = ["php","php-mysqlnd","php-pdo","php-gd","php-mbstring"]
+

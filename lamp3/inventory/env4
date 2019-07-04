@@ -1,0 +1,10 @@
+[ubuntu]
+localhost pack_name=apache2
+
+[redhat]
+ip-172-31-87-153.ec2.internal pack_name=httpd
+
+[webserver]
+localhost
+ip-172-31-87-153.ec2.internal
+

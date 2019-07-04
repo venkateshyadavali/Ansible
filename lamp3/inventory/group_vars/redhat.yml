@@ -1,0 +1,9 @@
+---
+pack_name: httpd
+php_packages:
+- php
+- php-mysqlnd
+- php-pdo
+- php-gd
+- php-mbstring
+
