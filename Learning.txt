@@ -1,0 +1,157 @@
+Tasks
+
+- Install Python on Redhat Node
+- Ansible Ping
+	ansible -m ping all
+- ansible-playbook file.yaml
+- 
+
+Video4:
+- Installation of ACS & Nodes
+- Ping module usage
+- Playbook structure
+- ansible-playbook
+- Gathering Facts
+- Google search
+
+Linux statement
+Is there a module in ansible to do that
+Search in ansible modules (docs.ansible.com)
+
+To write a yaml file for ansible:
+ - Identify the commands in Linux to perform the task
+ - Find the ansible module to do the same and equivalent yaml statements
+
+Loop
+"{{ item }}"
+with_items:
+ - 
+ -
+
+handlers
+tasks and handlers start at same point
+
+Group in the hosts/inventory file:
+[groupname]
+hosts
+
+/etc/ansible/hosts is system wide inventory file
+You can create a local inventory file and run that using argument '-i inventoryfile'
+Ex: ansible -i <inventoryfile> -m ping all
+
+setup module:
+ansible -m setup -a 'filter=*host*' all
+ansible -m setup -a 'filter=*os*' all
+
+Conditional statements
+when
+[always make sure when (conditional) and loop (with_items) is the last statement as a best practise]
+Ex: 
+	when: ansible_os_family == "RedHat"
+    "ansible_os_family": "Debian"
+
+Module not found:
+	If module is not found you can run windows/linux statements
+	Idempotency is lost
+Commands modules
+modules => for direct execution
+command, shell, script, execute
+	use when condition while executing this way to maintain idempotency
+
+variables
+
+
+
+lamp3
+group & host vars
+
+Variable
+- Is it a fact?
+- Group var?
+- Host var?
+- Global variables
+- Variables in playbook
+- Commandline variables
+
+Precedence of variable values:
+1. Commandline
+2. Inventory File
+3. Playbook
+
+For group and host vars, directories group_vars and host_vars will be present in the same directory as inventory
+File names would be <groupname>.yml and <hostname>.yml
+	The file names are case sensitive in Linux, so ensure same file names are given as in the inventory file groups
+
+-> Edit a file with dynamic content
+ansible-playbook --extra-vars "myname=Venkatesh" testingtemplates.yml
+
+
+Ex: The Java_Opts is defined in the j2 template and command to pass variables through command line
+Java_Opts =   xmx={{ perm_size }} {{ min_size }}
+ansible-playbook -e "perm_size=1024 min_size=512" tomcal.yml
+
+-> Passing variables from command line
+google 'ansible variables' and refer ansible documentation
+
+======================================
+Install LAMP on ubuntu 18.04
+1. sudo apt update
+2. sudo apt install apache2
+3. sudo systemctl restart apache2
+4. sudo apt install php libapache2-mod-php php-mysql
+5. sudo systemctl restart apache2
+6. sudo nano /var/www/html/info.php
+	<?php
+	phpinfo();
+	?>
+
+Shell Script for above:
+sudo apt update
+sudo apt install apache2 -y
+sudo systemctl restart apache2
+sudo apt install php libapache2-mod-php php-mysql -y
+sudo systemctl restart apache2
+echo '<?php	phpinfo(); ?>' >> /var/www/html/info.php
+
+
+ansible modules:
+	ping
+	apt
+	service
+	yum
+	file (For copying files etc.)
+	shell
+	setup
+	get_url
+	copy
+	template
+	
+
+============
+Loops
+============
+roles - reusible ansible playbook
+	defaults - default values
+	files - contains regular files those need to be copied to target hosts
+	handlers - event handlers
+	meta - role dependencies
+	tasks - playbook tasks
+	templates - similar to files, but has dynamic data
+	vars/group_vars - variable defenitions
+	
+To create default directory structure for role:
+ansible-galaxy <rolename> init
+
+- name: Describe the task
+  include_tasks: taskfilename.yml
+
+roles:
+First it checks in local folder where you playbook is
+Second it checks in home directory (~/.ansible/roles) roles and checks
+Thrid it goes and checks in /etc/ansible/roles
+
+Suppress fact collection
+Dynamic Inventory
+How to execute on multiple servers parallelly
+
+
