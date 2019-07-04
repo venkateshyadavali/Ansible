@@ -1,0 +1,7 @@
+Linux Steps:
+
+sudo apt-get update
+sudo apt-get install tomcat7
+curl http://qt.in/test.war -o /var/lib/tomcat7/webapps/test.war
+
+
